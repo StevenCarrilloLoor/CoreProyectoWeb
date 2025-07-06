@@ -1,0 +1,6 @@
+dotnet run -PetrolriosDeteccion
+npm start -Cliente
+
+dotnet ef migrations add AgregarUbicacion
+
+dotnet ef database update

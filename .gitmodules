@@ -1,0 +1,3 @@
+[submodule "PetrolriosFraudeDetection"]
+	path = PetrolriosFraudeDetection
+	url = https://github.com/StevenCarrilloLoor/PetrolriosFraudeDetection.git
