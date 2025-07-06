@@ -144,7 +144,7 @@ App.js
 
 1. **Clonar el repositorio**
 ```bash
-git clone https://github.com/tuusuario/PetrolriosFraudeDetection.git
+git clone https://github.com/StevenCarrilloLoor/CoreProyectoWeb.git
 cd PetrolriosFraudeDetection
 ```
 
