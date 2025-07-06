@@ -1,0 +1,104 @@
+@model PetrolriosFraudeDetection.Models.Entities.Factura
+
+@{
+    ViewData["Title"] = "Crear Factura";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label class="control-label">Estación</label>
+                <select id="EstacionId" class="form-control" required>
+                    <option value="">-- Seleccione Estación --</option>
+                    @foreach (var item in ViewBag.Estaciones)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="VentaId" class="control-label">Venta</label>
+                <select asp-for="VentaId" class="form-control" asp-items="ViewBag.Ventas" required>
+                    <option value="">-- Primero seleccione una estación --</option>
+                </select>
+                <span asp-validation-for="VentaId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="NumeroFactura" class="control-label"></label>
+                <input asp-for="NumeroFactura" class="form-control" placeholder="Formato: 000-000-000000000" />
+                <span asp-validation-for="NumeroFactura" class="text-danger"></span>
+                <small class="form-text text-muted">El número de factura debe seguir el formato 000-000-000000000.</small>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="FechaEmision" class="control-label"></label>
+                <input asp-for="FechaEmision" type="date" class="form-control" />
+                <span asp-validation-for="FechaEmision" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Monto" class="control-label"></label>
+                <input asp-for="Monto" class="form-control" />
+                <span asp-validation-for="Monto" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Anulada" /> @Html.DisplayNameFor(model => model.Anulada)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $(document).ready(function() {
+            // Cuando cambia la selección de estación, cargar las ventas correspondientes
+            $("#EstacionId").change(function() {
+                var estacionId = $(this).val();
+                if (estacionId) {
+                    $.ajax({
+                        url: '@Url.Action("GetVentasByEstacion")',
+                        type: 'GET',
+                        data: { estacionId: estacionId },
+                        success: function(data) {
+                            var ventasSelect = $("#VentaId");
+                            ventasSelect.empty();
+                            ventasSelect.append($('<option>', { 
+                                value: '',
+                                text: '-- Seleccione una venta --'
+                            }));
+                            $.each(data, function(index, item) {
+                                ventasSelect.append($('<option>', { 
+                                    value: item.id,
+                                    text: item.numeroTransaccion
+                                }));
+                            });
+                        },
+                        error: function() {
+                            alert("Error al cargar las ventas. Por favor, intente nuevamente.");
+                        }
+                    });
+                } else {
+                    $("#VentaId").empty();
+                    $("#VentaId").append('<option value="">-- Primero seleccione una estación --</option>');
+                }
+            });
+        });
+    </script>
+}

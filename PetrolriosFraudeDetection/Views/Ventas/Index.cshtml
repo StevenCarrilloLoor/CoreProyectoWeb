@@ -1,0 +1,42 @@
+@model IEnumerable<PetrolriosFraudeDetection.Models.Entities.Venta>
+
+@{
+    ViewData["Title"] = "Ventas";
+}
+
+<h1>Ventas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Registrar Nueva Venta</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Estación</th>
+            <th>Litros Vendidos</th>
+            <th>Monto Total</th>
+            <th>Número de Transacción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@(item.Estacion != null ? item.Estacion.Nombre : "N/A")</td>
+                <td>@item.LitrosVendidos.ToString("N2")</td>
+                <td>$@item.MontoTotal.ToString("N2")</td>
+                <td>@item.NumeroTransaccion</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

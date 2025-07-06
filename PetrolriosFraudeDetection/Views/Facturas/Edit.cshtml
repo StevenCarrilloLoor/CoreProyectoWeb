@@ -1,0 +1,55 @@
+@model PetrolriosFraudeDetection.Models.Entities.Factura
+
+@{
+    ViewData["Title"] = "Editar Factura";
+}
+
+<h1>Editar Factura</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="form-group mb-3">
+                <label asp-for="NumeroFactura" class="control-label">Número de Factura</label>
+                <input asp-for="NumeroFactura" class="form-control" readonly />
+                <span asp-validation-for="NumeroFactura" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="FechaEmision" class="control-label">Fecha de Emisión</label>
+                <input asp-for="FechaEmision" class="form-control" type="datetime-local" value="@Model.FechaEmision.ToString("yyyy-MM-ddTHH:mm")" />
+                <span asp-validation-for="FechaEmision" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Monto" class="control-label">Monto</label>
+                <input asp-for="Monto" class="form-control" />
+                <span asp-validation-for="Monto" class="text-danger"></span>
+            </div>
+            
+            <div class="form-check mb-3">
+                <input asp-for="Anulada" class="form-check-input" />
+                <label asp-for="Anulada" class="form-check-label">Anulada</label>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="VentaId" class="control-label">Venta</label>
+                <select asp-for="VentaId" class="form-control" asp-items="ViewBag.Ventas" disabled></select>
+                <span asp-validation-for="VentaId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

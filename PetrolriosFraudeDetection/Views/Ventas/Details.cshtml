@@ -1,0 +1,71 @@
+@model PetrolriosFraudeDetection.Models.Entities.Venta
+
+@{
+    ViewData["Title"] = "Detalles de Venta";
+}
+
+<h1>Detalles de Venta</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID:</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        
+        <dt class="col-sm-2">Fecha:</dt>
+        <dd class="col-sm-10">@Model.Fecha.ToString("dd/MM/yyyy HH:mm")</dd>
+        
+        <dt class="col-sm-2">Estación:</dt>
+        <dd class="col-sm-10">@(Model.Estacion != null ? Model.Estacion.Nombre : "N/A")</dd>
+        
+        <dt class="col-sm-2">Litros Vendidos:</dt>
+        <dd class="col-sm-10">@Model.LitrosVendidos.ToString("N2")</dd>
+        
+        <dt class="col-sm-2">Monto Total:</dt>
+        <dd class="col-sm-10">$@Model.MontoTotal.ToString("N2")</dd>
+        
+        <dt class="col-sm-2">Número de Transacción:</dt>
+        <dd class="col-sm-10">@Model.NumeroTransaccion</dd>
+    </dl>
+</div>
+
+<div class="mt-4">
+    <h3>Facturas asociadas</h3>
+    @if (Model.Facturas != null && Model.Facturas.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Número de Factura</th>
+                    <th>Fecha de Emisión</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var factura in Model.Facturas)
+                {
+                    <tr>
+                        <td>@factura.NumeroFactura</td>
+                        <td>@factura.FechaEmision.ToString("dd/MM/yyyy")</td>
+                        <td>$@factura.Monto.ToString("N2")</td>
+                        <td>@(factura.Anulada ? "Anulada" : "Vigente")</td>
+                        <td>
+                            <a asp-controller="Facturas" asp-action="Details" asp-route-id="@factura.Id" class="btn btn-sm btn-info">Detalles</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No hay facturas asociadas a esta venta.</p>
+    }
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>

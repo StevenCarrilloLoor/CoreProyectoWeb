@@ -1,0 +1,44 @@
+@model IEnumerable<PetrolriosFraudeDetection.Models.Entities.Factura>
+
+@{
+    ViewData["Title"] = "Facturas";
+}
+
+<h1>Facturas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Factura</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Número de Factura</th>
+            <th>Fecha de Emisión</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Venta</th>
+            <th>Estación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.NumeroFactura</td>
+                <td>@item.FechaEmision.ToString("dd/MM/yyyy")</td>
+                <td>$@item.Monto.ToString("N2")</td>
+                <td>@(item.Anulada ? "Anulada" : "Vigente")</td>
+                <td>@(item.Venta != null ? item.Venta.NumeroTransaccion : "N/A")</td>
+                <td>@(item.Venta?.Estacion != null ? item.Venta.Estacion.Nombre : "N/A")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

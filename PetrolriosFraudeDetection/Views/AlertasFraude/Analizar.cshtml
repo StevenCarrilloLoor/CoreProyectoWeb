@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Analizar Datos";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Ejecutar Análisis de Fraude</h5>
+            </div>
+            <div class="card-body">
+                <p class="alert alert-info">
+                    Utilice esta herramienta para analizar los datos y detectar posibles fraudes.
+                    El sistema procesará la información de ventas, inventarios y sensores para la fecha seleccionada.
+                </p>
+                
+                <form asp-action="Analizar" method="post">
+                    <div class="form-group mb-3">
+                        <label for="fecha">Fecha para Analizar</label>
+                        <input type="date" id="fecha" name="fecha" class="form-control" required value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Ejecutar Análisis</button>
+                    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Información</h5>
+            </div>
+            <div class="card-body">
+                <h6>El sistema detecta los siguientes tipos de fraude:</h6>
+                <ul>
+                    <li><strong>Facturación duplicada:</strong> Detecta números de factura repetidos o montos idénticos inusuales.</li>
+                    <li><strong>Desaparición de combustible:</strong> Identifica disminuciones no justificadas en el inventario.</li>
+                    <li><strong>Anomalías en ventas:</strong> Compara las ventas registradas con los movimientos físicos de combustible.</li>
+                </ul>
+                
+                <h6>El proceso de análisis incluye:</h6>
+                <ol>
+                    <li>Recopilación de datos de la fecha seleccionada</li>
+                    <li>Aplicación de reglas de negocio y algoritmos de detección</li>
+                    <li>Comparación con patrones históricos</li>
+                    <li>Generación de alertas para revisión manual</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

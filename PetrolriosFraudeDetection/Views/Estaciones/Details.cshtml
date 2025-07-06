@@ -1,0 +1,32 @@
+@model PetrolriosFraudeDetection.Models.Entities.Estacion
+
+@{
+    ViewData["Title"] = "Detalles de Estación";
+}
+
+<h1>Detalles de Estación</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID:</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        
+        <dt class="col-sm-2">Nombre:</dt>
+        <dd class="col-sm-10">@Model.Nombre</dd>
+        
+        <dt class="col-sm-2">Ubicación:</dt>
+        <dd class="col-sm-10">@Model.Ubicacion</dd>
+        
+        <dt class="col-sm-2">Código:</dt>
+        <dd class="col-sm-10">@Model.Codigo</dd>
+        
+        <dt class="col-sm-2">Estado:</dt>
+        <dd class="col-sm-10">@(Model.Activo ? "Activo" : "Inactivo")</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>

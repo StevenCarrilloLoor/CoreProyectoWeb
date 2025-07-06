@@ -1,0 +1,41 @@
+@model IEnumerable<PetrolriosFraudeDetection.Models.Entities.Estacion>
+
+@{
+    ViewData["Title"] = "Estaciones";
+}
+
+<h1>Estaciones</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Estación</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ubicación</th>
+            <th>Código</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>@item.Ubicacion</td>
+                <td>@item.Codigo</td>
+                <td>@(item.Activo ? "Activo" : "Inactivo")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

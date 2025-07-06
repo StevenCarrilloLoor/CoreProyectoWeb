@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Sistema de Detección de Fraude Petrolrios</h1>
+    <p>Bienvenido al sistema de detección de fraudes para la empresa petrolera Petrolrios.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Funcionalidades Principales</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Gestión de estaciones de servicio</li>
+                    <li>Registro de ventas y facturación</li>
+                    <li>Monitoreo de sensores de volumen</li>
+                    <li>Control de inventario</li>
+                    <li>Detección automática de anomalías</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Acciones</h5>
+            </div>
+            <div class="card-body">
+                <p>Utilice el menú de navegación para acceder a las diferentes secciones del sistema.</p>
+                <a asp-controller="Estaciones" asp-action="Index" class="btn btn-primary">Gestionar Estaciones</a>
+                <a asp-controller="Ventas" asp-action="Index" class="btn btn-success">Gestionar Ventas</a>
+                <a asp-controller="AlertasFraude" asp-action="Index" class="btn btn-warning">Ver Alertas</a>
+            </div>
+        </div>
+    </div>
+</div>

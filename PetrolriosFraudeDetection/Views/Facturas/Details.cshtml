@@ -1,0 +1,47 @@
+@model PetrolriosFraudeDetection.Models.Entities.Factura
+
+@{
+    ViewData["Title"] = "Detalles de Factura";
+}
+
+<h1>Detalles de Factura</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID:</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        
+        <dt class="col-sm-2">Número de Factura:</dt>
+        <dd class="col-sm-10">@Model.NumeroFactura</dd>
+        
+        <dt class="col-sm-2">Fecha de Emisión:</dt>
+        <dd class="col-sm-10">@Model.FechaEmision.ToString("dd/MM/yyyy HH:mm")</dd>
+        
+        <dt class="col-sm-2">Monto:</dt>
+        <dd class="col-sm-10">$@Model.Monto.ToString("N2")</dd>
+        
+        <dt class="col-sm-2">Estado:</dt>
+        <dd class="col-sm-10">@(Model.Anulada ? "Anulada" : "Vigente")</dd>
+        
+        <dt class="col-sm-2">Venta:</dt>
+        <dd class="col-sm-10">
+            @if (Model.Venta != null)
+            {
+                <a asp-controller="Ventas" asp-action="Details" asp-route-id="@Model.VentaId">@Model.Venta.NumeroTransaccion</a>
+            }
+            else
+            {
+                <span>N/A</span>
+            }
+        </dd>
+        
+        <dt class="col-sm-2">Estación:</dt>
+        <dd class="col-sm-10">@(Model.Venta?.Estacion != null ? Model.Venta.Estacion.Nombre : "N/A")</dd>
+    </dl>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>

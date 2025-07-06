@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "System Diagnostics";
+}
+
+<h1>System Diagnostics</h1>
+
+@if (ViewBag.MainError != null)
+{
+    <div class="alert alert-danger">
+        <h3>Critical Error</h3>
+        <p>@ViewBag.MainError</p>
+        <pre>@ViewBag.MainStackTrace</pre>
+    </div>
+}
+else
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Database Connection</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Connection String:</strong> @ViewBag.ConnectionString</p>
+            
+            @if (ViewBag.ConnectionError != null)
+            {
+                <div class="alert alert-danger">
+                    <h4>Connection Error</h4>
+                    <p>@ViewBag.ConnectionError</p>
+                </div>
+            }
+            else
+            {
+                <p><strong>Can Connect to Database:</strong> @ViewBag.CanConnect</p>
+            }
+        </div>
+    </div>
+
+    @if (ViewBag.CanConnect == true)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Estaciones Table</h3>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.EstacionesError != null)
+                {
+                    <div class="alert alert-danger">
+                        <h4>Estaciones Table Error</h4>
+                        <p>@ViewBag.EstacionesError</p>
+                    </div>
+                }
+                else
+                {
+                    <p><strong>Estaciones Count:</strong> @ViewBag.EstacionesCount</p>
+                    
+                    @if (ViewBag.EstacionesCount > 0)
+                    {
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Ubicación</th>
+                                    <th>Código</th>
+                                    <th>Activo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var estacion in ViewBag.EstacionesData)
+                                {
+                                    <tr>
+                                        <td>@estacion.Id</td>
+                                        <td>@estacion.Nombre</td>
+                                        <td>@estacion.Ubicacion</td>
+                                        <td>@estacion.Codigo</td>
+                                        <td>@(estacion.Activo ? "Sí" : "No")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                }
+            </div>
+        </div>
+    }
+}
+
+<div class="mt-4">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Home</a>
+</div>

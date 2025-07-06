@@ -1,0 +1,56 @@
+@model PetrolriosFraudeDetection.Models.Entities.Venta
+
+@{
+    ViewData["Title"] = "Editar Venta";
+}
+
+<h1>Editar Venta</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="form-group mb-3">
+                <label asp-for="Fecha" class="control-label">Fecha</label>
+                <input asp-for="Fecha" class="form-control" type="datetime-local" value="@Model.Fecha.ToString("yyyy-MM-ddTHH:mm")" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="EstacionId" class="control-label">Estación</label>
+                <select asp-for="EstacionId" class="form-control" asp-items="ViewBag.Estaciones"></select>
+                <span asp-validation-for="EstacionId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="LitrosVendidos" class="control-label">Litros Vendidos</label>
+                <input asp-for="LitrosVendidos" class="form-control" />
+                <span asp-validation-for="LitrosVendidos" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="MontoTotal" class="control-label">Monto Total</label>
+                <input asp-for="MontoTotal" class="form-control" />
+                <span asp-validation-for="MontoTotal" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="NumeroTransaccion" class="control-label">Número de Transacción</label>
+                <input asp-for="NumeroTransaccion" class="form-control" readonly />
+                <span asp-validation-for="NumeroTransaccion" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
